@@ -69,9 +69,11 @@ var styles = StyleSheet.create({
   }
 });
 
-class SearchScreen extends Component {
+extend default class SearchScreen extends Component {
   constructor(props){
     this.state = {
+      isLoading:false,
+      filter:'',
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 != row2
       }),
@@ -102,26 +104,43 @@ class SearchScreen extends Component {
     highlightRowFunc:(sectionID: ?number | string,
       rowID: ?number |string)
   ){
-    return <NoteCell
-    key={node.id}
-    onSelect={()=> this.selectNote(note)}
-    onHighlight={() => highlightRowFunc(sectionID,rowID)}
-    onUnHighlight={()=> highlightRowFunc(null,null)}
-    note={note}
-    />
+    return (
+        <NoteCell
+        key={node.id}
+        onSelect={()=> this.selectNote(note)}
+        onHighlight={() => highlightRowFunc(sectionID,rowID)}
+        onUnHighlight={()=> highlightRowFunc(null,null)}
+        note={note}
+      />
+    )
   }
 
   render(){
     let content = this.state.dataSource.getRowCount()===0 ?
-      <NoNotes />
+      <NoNotes filter={this.state.filter} isLoading={this.state.isLoading}/>
       :
       <ListView
        ref="listview"
        renderSeparator={this.renderSeparator}
        dataSource={this.state.dataSource}
        renderRow={this.renderRow}
-       onEndReached={this.onEndReached}
-      >
+       automaticallyAdjustContentInsets={false}
+       keyboardDismissMode="on-drag"
+       keyboardShouldPersistTips={true}
+       showsVerticalScrollIndicator={false}
+      />
+
+      return(
+        <View style={styles.container}>
+          <SearchBar
+          onSearchChange={this.onSearchChange.bind(this)}
+          isLoading={this.state.isLoading}
+          onFocus={()=>this.refs.listview&&this.refs.listview.getScrollResponder().scrollTo({x:0,y:0})}
+          />
+          <View style={styles.separator}/>
+          {content}
+        </View>
+      )
   }
 }
 
