@@ -23,7 +23,7 @@ export default class NoteScreen extends Component{
     return(
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.mainSection}>
-          <Image source="https://source.unsplash.com/random/100x100" style={style.detailsImage}>
+          <Image source="https://source.unsplash.com/random/85x85" style={style.detailsImage}>
           <View style={styles.rightPane}>
             <Text style={styles.noteTitle}>{this.props.note.title}</Text>
           </View>
