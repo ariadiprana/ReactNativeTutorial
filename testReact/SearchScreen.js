@@ -87,4 +87,44 @@ class SearchScreen extends Component {
       })
     }
   }
+
+  renderSeparator(sectionID: number | string, rowID : number|string, adjacentRowHighlighted: boolean){
+    let style = styles.rowSeparator;
+  }
+
+  render(){
+    let content = this.state.dataSource.getRowCount()===0 ?
+      <NoNotes />
+      :
+      <ListView ref="listview" renderSeparator={this.renderSeparator}>
+  }
 }
+
+var styles = StyleSheet.create({
+  container:{
+    flex:1,
+    backgroundColor:'white'
+  },
+  centerText:{
+    alignItems:'center'
+  },
+  noNotesText:{
+    marginTop:80,
+    color: '#888888'
+  },
+  separator:{
+    height:1,
+    backgroundColor:'#eeeeee'
+  },
+  scrollSpinner:{
+    marginVertical:20
+  },
+  rowSeparator:{
+    backgroundColor:'rgba(0,0,0,0.1)',
+    height:1,
+    marginLeft:4
+  },
+  rowSeparatorHide:{
+    opacity:0.0
+  }
+});

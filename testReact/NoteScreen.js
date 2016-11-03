@@ -14,7 +14,7 @@ import ReactNative, {
   TouchableHighlight
 } from 'react-native';
 
-class NoteScreen extends Component{
+export default class NoteScreen extends Component{
   constructor(props){
     super(props)
   }
@@ -23,7 +23,14 @@ class NoteScreen extends Component{
     return(
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.mainSection}>
-          <Image>
+          <Image source="https://source.unsplash.com/random/100x100" style={style.detailsImage}>
+          <View style={styles.rightPane}>
+            <Text style={styles.noteTitle}>{this.props.note.title}</Text>
+          </View>
+          <View style={styles.separator} />
+          <View>
+            {this.props.note.content}
+          </View>
         </View>
       </ScrollView>
     )
