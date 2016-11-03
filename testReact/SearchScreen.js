@@ -90,13 +90,38 @@ class SearchScreen extends Component {
 
   renderSeparator(sectionID: number | string, rowID : number|string, adjacentRowHighlighted: boolean){
     let style = styles.rowSeparator;
+    if(adjacentRowHighlighted){
+      style= [style,styles.rowSeparatorHide]
+    }
+    return(
+      <View key={'SEP_'+sectionID+'_'+rowID} style={style} />
+    )
+  }
+
+  renderRow(note:Object,sectionID: number|string,rowID,number|string,
+    highlightRowFunc:(sectionID: ?number | string,
+      rowID: ?number |string)
+  ){
+    return <NoteCell
+    key={node.id}
+    onSelect={()=> this.selectNote(note)}
+    onHighlight={() => highlightRowFunc(sectionID,rowID)}
+    onUnHighlight={()=> highlightRowFunc(null,null)}
+    note={note}
+    />
   }
 
   render(){
     let content = this.state.dataSource.getRowCount()===0 ?
       <NoNotes />
       :
-      <ListView ref="listview" renderSeparator={this.renderSeparator}>
+      <ListView
+       ref="listview"
+       renderSeparator={this.renderSeparator}
+       dataSource={this.state.dataSource}
+       renderRow={this.renderRow}
+       onEndReached={this.onEndReached}
+      >
   }
 }
 
