@@ -1,10 +1,12 @@
 'use strict';
 
 var React = require('react');
-var ReactNative = require('react-native');
+import {ActivityIndicator,TextInput,StyleSheet,Text,View,NavigatorIOS} from 'react-native'
 var SearchPage = require('./SearchPage');
 
-var styles = ReactNative.StyleSheet.create({
+import SearchScreen from './SearchScreem'
+
+var styles = StyleSheet.create({
   text: {
     color: 'black',
     backgroundColor: 'white',
@@ -13,34 +15,20 @@ var styles = ReactNative.StyleSheet.create({
   }
 });
 
-class HelloWorld extends React.Component {
-  render() {
-    return <ReactNative.Text style={styles.text}>ariadiprana</ReactNative.Text>;
-  }
-}
-
-class PropertyFinderApp extends React.Component {
+class testReact extends React.Component {
   render() {
     return (
-      <ReactNative.NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'My Personal Note',
-          component: SearchPage
-        }}/>
+      <NavigatorIOS style={syles.container} initialRoute={
+        {title: 'Personal Note', component: SearchScreen}
+      }/>
     );
   }
 }
 
-var styles = ReactNative.StyleSheet.create({
-  text: {
-    color: 'black',
-    backgroundColor: 'white',
-    fontSize: 30,
-    margin: 80
-  },
+var styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:'#FFFFFF'
   }
 });
 

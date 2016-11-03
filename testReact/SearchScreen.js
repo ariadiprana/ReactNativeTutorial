@@ -16,7 +16,7 @@ import ReactNative, {
 import NoteScreen from './NoteScreen'
 import NoteCell from './NoteCell'
 import SearchBar from './SearchBar'
-
+import configNote from './config.note.js'
 
 var styles = StyleSheet.create({
   description: {
