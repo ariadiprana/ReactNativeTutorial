@@ -10,67 +10,19 @@ import ReactNative, {
   ActivityIndicator,
   Image,
   Platform,
-  ListView,
-  TouchableHighlight
+  ListView
 } from 'react-native';
 import NoteScreen from './NoteScreen'
 import NoteCell from './NoteCell'
 import SearchBar from './SearchBar'
 import configNote from './config.note.js'
+import NoNotes from './NoNotes.js'
 
-var styles = StyleSheet.create({
-  description: {
-    marginBottom: 20,
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#656565'
-  },
-  container: {
-    padding: 30,
-    marginTop: 65,
-    alignItems: 'center'
-  },
-  flowRight: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  alignSelf: 'stretch'
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 20,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  searchInput: {
-    height: 36,
-    padding: 4,
-    marginRight: 5,
-    flex: 4,
-    fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#48BBEC',
-    borderRadius: 8,
-    color: '#48BBEC'
-  },
-  image: {
-    width: 50,
-    height:70
-  }
-});
 
-extend default class SearchScreen extends Component {
+
+export default class SearchScreen extends Component {
   constructor(props){
+    super(props)
     this.state = {
       isLoading:false,
       filter:'',
@@ -78,6 +30,46 @@ extend default class SearchScreen extends Component {
         rowHasChanged: (row1, row2) => row1 != row2
       }),
     }
+  }
+
+  componentDidMount(){
+    this.searchNote('')
+  }
+
+  _urlForQueryAndPage(query){
+    if(query){
+      return `${configNote.resturl}/search/${query}`
+    }else{
+      return `${configNote.resturl}`
+    }
+  }
+
+  getDataSource(notes:Array<any>) : ListView.dataSource{
+    return this.state.dataSource.cloneWithRows(notes)
+  }
+
+  SearchNote(query: string){
+    this.setState({filter:query})
+    fetch(this._urlForQueryAndPage(query))
+      .then((response)=>{
+        return response.json()
+      })
+      .catch((error)=>{
+        this.setState({dataSource: this.getDataSource([])},isLoading:false)
+      })
+      .then((notes)=>{
+        if(this.state.filter!== query){
+          return
+        }
+        this.setState({
+          isLoading:false,
+          dataSource:this.getDataSource(notes)
+        })
+      })
+  }
+
+  onSearchChange(event: Object){
+    let filter = event
   }
 
   selectNote(note: Object){
@@ -100,10 +92,11 @@ extend default class SearchScreen extends Component {
     )
   }
 
-  renderRow(note:Object,sectionID: number|string,rowID,number|string,
-    highlightRowFunc:(sectionID: ?number | string,
-      rowID: ?number |string)
-  ){
+  renderRow(note:Object,
+    sectionID: number|string,rowID:number|string,
+    highlightRowFunc:(sectionID: ?number | string, rowID: ?number |string)=>void
+  )
+  {
     return (
         <NoteCell
         key={node.id}
@@ -129,6 +122,7 @@ extend default class SearchScreen extends Component {
        keyboardShouldPersistTips={true}
        showsVerticalScrollIndicator={false}
       />
+      console.log('ARIDISINI',content);
 
       return(
         <View style={styles.container}>

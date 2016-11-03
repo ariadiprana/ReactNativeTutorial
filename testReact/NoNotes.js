@@ -12,11 +12,11 @@ export default class NoNotes extends Component {
       text = 'No Notes found'
     }
 
-    return{
+    return(
       <View style={[styles.container,styles.centerText]}>
         <Text style={styles.noNotextText}>{text}</Text>
       </View>
-    }
+    )
   }
 }
 

@@ -10,8 +10,7 @@ import {
   ActivityIndicator,
   Image,
   Platform,
-  ListView,
-  TouchableHighlight
+  ListView
 } from 'react-native';
 
 var styles = StyleSheet.create({

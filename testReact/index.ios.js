@@ -1,24 +1,16 @@
 'use strict';
 
-var React = require('react');
-import {ActivityIndicator,TextInput,StyleSheet,Text,View,NavigatorIOS} from 'react-native'
+import React,{Component} from 'react'
+import ReactNative,{ActivityIndicator,TextInput,StyleSheet,Text,View,NavigatorIOS} from 'react-native'
 var SearchPage = require('./SearchPage');
+var SearchScreen = require('./SearchScreen');
 
-import SearchScreen from './SearchScreem'
 
-var styles = StyleSheet.create({
-  text: {
-    color: 'black',
-    backgroundColor: 'white',
-    fontSize: 30,
-    margin: 80
-  }
-});
 
 class testReact extends React.Component {
   render() {
     return (
-      <NavigatorIOS style={syles.container} initialRoute={
+      <NavigatorIOS style={styles.container} initialRoute={
         {title: 'Personal Note', component: SearchScreen}
       }/>
     );
@@ -32,4 +24,4 @@ var styles = StyleSheet.create({
   }
 });
 
-ReactNative.AppRegistry.registerComponent('testReact', function() { return PropertyFinderApp });
+ReactNative.AppRegistry.registerComponent('testReact', function() { return testReact });

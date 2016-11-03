@@ -1,6 +1,6 @@
 'use strict'
 
-import React, {component} from 'react'
+import React, {Component} from 'react'
 import ReactNative, {Image, Platform, StyleSheet, Text, View, TouchableHighlight} from 'react-native'
 
 export default class NoteCell extends Component{
@@ -12,10 +12,10 @@ export default class NoteCell extends Component{
         onHideUnderlay={this.props.onUnHighlight}>
           <View style={styles.row}>
             <Image source="a" style={styles.cellImage}/>
-            <View style={style.textContainer}
+            <View style={styles.textContainer}>
               <Text style={styles.noteTitle}>
                 {this.props.note.title}
-              </Text
+              </Text>
             </View>
           </View>
         </TouchableHighlight>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   cellBorder:{
     backgroundColor:'rgba(0,0,0,0.1)',
-    height:Style.hairlineWidth,
+    height:StyleSheet.hairlineWidth,
     marginLeft:4
   }
 })

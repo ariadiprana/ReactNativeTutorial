@@ -27,7 +27,7 @@ var styles=StyleSheet.create({
     marginTop:64,
     padding:3,
     paddingLeft:8,
-    flexDirection:'row'
+    flexDirection:'row',
     alignItems:'center'
   },
   searchBarInput:{
